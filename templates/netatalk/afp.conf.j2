@@ -1,0 +1,15 @@
+;
+; Netatalk 3.x configuration file
+; Ansible defined
+
+[Global]
+log level = default:warn
+log file = {{ netatalk_log_file }}
+spotlight = yes
+
+[Time Machine]
+path = {{ timemachine_path }}
+valid users = {{ timemachine_user }}
+time machine = yes
+ea = auto
+spotlight = no

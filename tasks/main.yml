@@ -1,0 +1,51 @@
+---
+
+- name: Ensure EPEL is added
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install netatalk and dependencies
+  yum:
+    name: 
+      - {{ netatalk_version }}
+      - dconf
+      - libevent
+      - libtdb
+      - tracker
+      - avahi
+      - avahi-libs
+      - avahi-autoipd
+    state: present
+
+- name: Template afp.conf
+  template:
+    src: etc/netatalk/afp.conf.j2
+    dest: /etc/netatalk/afp.conf
+  notify:
+    - restart netatalk
+    - restart avahi-daemon
+
+- name: Setup time machine user {{ timemachine_user }}
+  user:
+    name: "{{ timemachine_user }}"
+    state: present
+    create_home: no
+    password: "{{ timemachine_password }}"
+
+ - name: Ensure {{ timemachine_path }} exists
+   file:
+    path: " {{ timemachine_path }}
+    state: directory
+    owner: "{{ timemachine_user }}"
+    group: "{{ timemachine_user }}"
+    mode: 0775
+
+- name: Start and enable services
+  service:
+    name:
+      - netatalk
+      - avahi-daemon
+      - avahi-daemon.socket
+    state: started
+    enabled: true 

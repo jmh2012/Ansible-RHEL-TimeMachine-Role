@@ -1,0 +1,9 @@
+---
+
+netatalk_version: netatalk-3.1.12
+
+netatalk_log_file: /var/log/afpd.log
+
+timemachine_path: /shares/timemachine
+timemachine_user: timemachine
+timemachine_password: $6$rounds=656000$mysecretsalt$LnYmXsfbMb5JTUi7PWRHEs7jfxtBgyTa7ym8e8EtzWKCx8KfIpFnGj20JrzYVhlbmPX1FIu1ge5OyrHso7gB00
